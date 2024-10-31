@@ -67,10 +67,9 @@ class EmailField(CharField):
 
     def validate(self, value):
         """Валидация."""
-        if '@' in value:
-            return
-        else:
+        if value and '@' not in value:
             raise ValueError('Адрес должен содержать "@')
+        return True
 
 
 class PhoneField(Field):
@@ -89,6 +88,7 @@ class PhoneField(Field):
             raise ValueError('Телефон должен состоять только из цифр')
         elif not value.startswith('7'):
             raise ValueError('Телефон должен начинаться с 7')
+        return True
 
 
 class DateField(CharField):
@@ -113,6 +113,7 @@ class BirthDayField(DateField):
         year_today = datetime.date.today().year
         if year_today - birthday_year > 70:
             raise ValueError('Прошло более 70 лет со дня рождения')
+        return True
 
 
 class GenderField(Field):
@@ -124,6 +125,7 @@ class GenderField(Field):
         """Валидация."""
         if value not in GENDERS:
             raise ValueError('Неизвестный пол')
+        return True
 
 
 class ClientIDsField(Field):
@@ -136,3 +138,4 @@ class ClientIDsField(Field):
         all_is_int = all([type(id_value) is int for id_value in id_values]) if id_values else False
         if not all_is_int:
             raise ValueError('Перечень клиентов должен содержать только цифры (id)')
+        return True

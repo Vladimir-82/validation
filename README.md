@@ -105,5 +105,11 @@ $ curl -X POST  -H "Content-Type: application/json" -d '{"account": "horns&hoofs
 ### Тесты
 Запуск тестов
 ```
-python -m unittest test.py
+poetry run pytest
 ```
+или
+
+```
+pytest
+```
+

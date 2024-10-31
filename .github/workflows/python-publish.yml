@@ -28,7 +28,8 @@ jobs: # jobs. We will have two jobs (test and publish) with multiple steps.
         run: poetry install
       - name: Pytest
         run: |
-          poetry run pytest test.py
+          poetry run pytest -k test_requests.py -k test_fields.py
+
       - name: flake8
         run: |
           poetry run flake8 .
